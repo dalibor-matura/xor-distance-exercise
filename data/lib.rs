@@ -1,15 +1,12 @@
-use num_traits::{PrimInt, Unsigned};
-use xor_distance::XorDistance;
+extern crate rand;
 
-pub struct FoodDeliverySystem<T: PrimInt + Unsigned> {
-    xor_distance: XorDistance<T>,
+pub struct FoodDeliverySystem {
+    addresses: Vec<u64>,
 }
 
-impl<T: PrimInt + Unsigned> FoodDeliverySystem<T> {
-    pub fn new(points: Vec<T>) -> Self {
-        let xor_distance = XorDistance::new(points);
-
-        Self { xor_distance }
+impl FoodDeliverySystem {
+    pub fn new(addresses: Vec<u64>) -> Self {
+        Self { addresses }
     }
 
     /// Return specified count of closest farms to the provided `position`.
@@ -18,9 +15,9 @@ impl<T: PrimInt + Unsigned> FoodDeliverySystem<T> {
     ///
     /// # Examples
     /// ```
-    /// extern crate xor_distance_exercise;
+    /// extern crate xor_distance_exercise_impl;
     ///
-    /// use xor_distance_exercise::delivery_system::FoodDeliverySystem;
+    /// use xor_distance_exercise_impl::FoodDeliverySystem;
     ///
     /// let delivery_system: FoodDeliverySystem<u64> = FoodDeliverySystem::new(vec![
     ///     0, 1, 2, 4, 6, 8, 12, 18, 19, 20, 21, 22, 406, 407, 408, 409, 410, 444, 445,
@@ -31,8 +28,11 @@ impl<T: PrimInt + Unsigned> FoodDeliverySystem<T> {
     ///
     /// let closest_farms = delivery_system.closest_farms(position, count);
     /// ```
-    pub fn closest_farms(&self, position: T, count: usize) -> Vec<T> {
-        self.xor_distance.closest(position, count)
+    pub fn closest_farms(&self, position: u64, count: usize) -> Vec<u64> {
+        let mut closest_sorted = self.addresses.clone();
+        closest_sorted.sort_by_key(|address| *address ^ position);
+        closest_sorted.truncate(count);
+        closest_sorted
     }
 
     /// Return a `Some(position)` such that `self.closest(position)` equals closest_farms and return
@@ -40,9 +40,9 @@ impl<T: PrimInt + Unsigned> FoodDeliverySystem<T> {
     ///
     /// # Examples
     /// ```
-    /// extern crate xor_distance_exercise;
+    /// extern crate xor_distance_exercise_impl;
     ///
-    /// use xor_distance_exercise::delivery_system::FoodDeliverySystem;
+    /// use xor_distance_exercise_impl::FoodDeliverySystem;
     ///
     /// let delivery_system: FoodDeliverySystem<u64> = FoodDeliverySystem::new(vec![
     ///     0, 1, 2, 4, 6, 8, 12, 18, 19, 20, 21, 22, 406, 407, 408, 409, 410, 444, 445,
@@ -58,19 +58,15 @@ impl<T: PrimInt + Unsigned> FoodDeliverySystem<T> {
     /// // Check that both `position` and `position_guess` produce the same result.
     /// assert_eq!(closest_farms, delivery_system.closest_farms(position_guess, count));
     /// ```
-    pub fn reverse_closest_farms(&self, closest_farms: &[T]) -> Option<T> {
-        self.xor_distance.reverse_closest(closest_farms)
+    pub fn reverse_closest_farms(&self, closest_farms: &[u64]) -> Option<u64> {
+        // TODO: This is the part of an exercise you should implement.
+
+        None
     }
 }
 
 #[cfg(test)]
 mod tests {
-    //! FoodDeliverySystem struct mirrors the XorDistance struct mostly and gives an opportunity to
-    //! add in more food delivery system specific functionality.
-    //!
-    //! There are a few simple tests mirroring some XorDistance tests and additional complementary
-    //! random tests.
-
     use super::FoodDeliverySystem;
     use rand::distributions::Standard;
     use rand::prelude::*;
@@ -78,7 +74,7 @@ mod tests {
 
     #[test]
     fn closest_farms() {
-        let delivery_system: FoodDeliverySystem<u64> = FoodDeliverySystem::new(vec![
+        let delivery_system: FoodDeliverySystem = FoodDeliverySystem::new(vec![
             0, 1, 2, 4, 6, 8, 12, 18, 19, 20, 21, 22, 406, 407, 408, 409, 410, 444, 445,
         ]);
 
@@ -90,7 +86,7 @@ mod tests {
 
     #[test]
     fn reverse_closest_farms() {
-        let delivery_system: FoodDeliverySystem<u64> = FoodDeliverySystem::new(vec![
+        let delivery_system: FoodDeliverySystem = FoodDeliverySystem::new(vec![
             0, 1, 2, 4, 6, 8, 12, 18, 19, 20, 21, 22, 406, 407, 408, 409, 410, 444, 445,
         ]);
 
@@ -156,3 +152,4 @@ mod tests {
     }
 
 }
+

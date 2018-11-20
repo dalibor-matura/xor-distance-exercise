@@ -1,0 +1,7 @@
+[package]
+name = "xor-distance-exercise-impl"
+version = "0.1.0"
+description = "Xor distances exercise implementation."
+
+[dependencies]
+rand = "0.6"
