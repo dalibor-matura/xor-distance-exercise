@@ -1,8 +1,8 @@
 # xor-distance-exercise
-Xor distances exercise including xor and bit operations for Rust.
+Xor distances exercise including xor and bitwise operations for Rust.
 
 ### Intro
-In order to get more familiar with **xor operations** and **xor distances**, you can try the following exercise. It is based on a challenge I’ve received as part of an interview.
+In order to get more familiar with **xor operations** and **xor distances**, you can try the following exercise. It is based on the challenge I’ve received as part of an interview.
 
 This crate consists of:
 - generic solution for the task (described below)
