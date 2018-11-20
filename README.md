@@ -2,13 +2,11 @@
 Xor distances exercise including xor and bitwise operations for Rust.
 
 ## Overview
-In order to get more familiar with **xor operations** and **xor distances**, you can try the following exercise. It is based on the challenge I’ve received as part of an interview.
+In order to get more familiar with **xor operations** and **xor distances**, you can try the following exercise described in the [Challenge](https://github.com/dalibor-matura/xor-distance-exercise#Challenge) section below. It is based on the challenge I’ve received as part of an interview once.
 
-The `xor-distance-exercise` crate consists of:
-- generic solution for the task (described below)
-- starting point/code to take on the challenge (placed in [data](https://github.com/dalibor-matura/xor-distance-exercise/tree/master/data) folder)
+The `xor-distance-exercise` crate itself is a generic solution for the challenge. The [data](https://github.com/dalibor-matura/xor-distance-exercise/tree/master/data) folder contains a starting point to take on the challenge, so do not peek anywhere else if you intend to find or implement the solution by yourself.
 
-## Task
+## Challenge
 Xor space has an odd shape, instead of location coordinates, places are specified by an unsigned `64-bit` integer. The distance between two points `x` and `y` is not what you’d expect, though: it’s `x ^ y`, the bitwise xor of the two locations.
 
 There are entrepreneurs in xor space too and one of them came up with an idea for a local fresh food delivery system:
