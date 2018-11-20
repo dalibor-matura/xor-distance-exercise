@@ -1,0 +1,14 @@
+[package]
+name = "xor-distance-exercise"
+version = "0.1.0"
+authors = ["Dalibor Matura <dalibor.matura@gmail.com>"]
+description = "Xor distances exercise including xor and bit operations."
+homepage = ""
+license = "GPL-3.0"
+readme = "README.md"
+repository = "https://github.com/"
+keywords = ["xor", "distance", "exercise"]
+
+[dependencies]
+num-traits = "0.2"
+rand = "0.6"
