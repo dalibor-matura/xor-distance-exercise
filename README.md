@@ -1,8 +1,12 @@
 # xor-distance-exercise
 Xor distances exercise including xor and bit operations for Rust.
 
-## The exercise
+### Intro
 In order to get more familiar with **xor operations** and **xor distances**, you can try the following exercise. It is based on a challenge I’ve received as part of an interview.
+
+This crate consists of:
+- generic solution for the task (described below)
+- starting point/code to take on the challenge (placed in [data](https://github.com/dalibor-matura/xor-distance-exercise/tree/master/data) folder)
 
 ### Task
 Xor space has an odd shape, instead of location coordinates, places are specified by an unsigned `64-bit` integer. The distance between two points `x` and `y` is not what you’d expect, though: it’s `x ^ y`, the bitwise xor of the two locations.
