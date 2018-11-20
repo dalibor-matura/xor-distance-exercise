@@ -6,7 +6,7 @@ description = "Xor distances exercise including xor and bit operations."
 homepage = ""
 license = "GPL-3.0"
 readme = "README.md"
-repository = "https://github.com/"
+repository = "https://github.com/dalibor-matura/xor-distance-exercise"
 keywords = ["xor", "distance", "exercise"]
 
 [dependencies]

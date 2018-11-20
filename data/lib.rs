@@ -29,10 +29,10 @@ impl FoodDeliverySystem {
     /// let closest_farms = delivery_system.closest_farms(position, count);
     /// ```
     pub fn closest_farms(&self, position: u64, count: usize) -> Vec<u64> {
-        let mut closest_sorted = self.addresses.clone();
-        closest_sorted.sort_by_key(|address| *address ^ position);
-        closest_sorted.truncate(count);
-        closest_sorted
+        let mut sorted_farms = self.addresses.clone();
+        sorted_farms.sort_by_key(|address| *address ^ position);
+        sorted_farms.truncate(count);
+        sorted_farms
     }
 
     /// Return a `Some(position)` such that `self.closest(position)` equals closest_farms and return
@@ -60,7 +60,6 @@ impl FoodDeliverySystem {
     /// ```
     pub fn reverse_closest_farms(&self, closest_farms: &[u64]) -> Option<u64> {
         // TODO: This is the part of an exercise you should implement.
-
         None
     }
 }
