@@ -28,7 +28,7 @@ The idea led to a creation of an application. You enter your `position` and a `c
 ```
 The information is handed over to delivery driver and farmers, so that the driver can pick up the food from the furthest farm to the nearest one to maximize freshness of the food when delivered.
 
-Farmers are curious though, they would like to know who their clients are. They’ve asked you to write an efficient better than `O(n2)` function (they like to be economical) that, given a number of closest farms (addresses), returns a possible `position` of the customer (there might be more than one such a position, but it just needs to return one of them). If there is no such a `position`, then it should return `None`:
+Farmers are curious though, they would like to know who their clients are. They’ve asked you to write an efficient better than `O(n2)` function (they like to be economical) that, given an ordered sequence of closest farms addresses (from the closest to the `n-th` closest), returns a possible `position` of the customer (there might be more than one such a position, but it just needs to return one of them). If there is no such a `position`, then it should return `None`:
 ```rust
     pub fn reverse_closest_farms(&self, closest_farms: &[u64]) -> Option<u64> {
         // TODO: This is the part of an exercise you should implement.
