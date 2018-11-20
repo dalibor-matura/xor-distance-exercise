@@ -1,14 +1,14 @@
-# xor-distance-exercise
+# Xor distance exercise
 Xor distances exercise including xor and bitwise operations for Rust.
 
-### Intro
+## Overview
 In order to get more familiar with **xor operations** and **xor distances**, you can try the following exercise. It is based on the challenge I’ve received as part of an interview.
 
-This crate consists of:
+The `xor-distance-exercise` crate consists of:
 - generic solution for the task (described below)
 - starting point/code to take on the challenge (placed in [data](https://github.com/dalibor-matura/xor-distance-exercise/tree/master/data) folder)
 
-### Task
+## Task
 Xor space has an odd shape, instead of location coordinates, places are specified by an unsigned `64-bit` integer. The distance between two points `x` and `y` is not what you’d expect, though: it’s `x ^ y`, the bitwise xor of the two locations.
 
 There are entrepreneurs in xor space too and one of them came up with an idea for a local fresh food delivery system:
@@ -36,9 +36,12 @@ Farmers are curious though and they’ve asked you to write an efficient (better
     }
 ```
 
-### Instructions
+## Instructions
 
 1. Create a new empty project: `cargo new xor-distance-exercise-impl --lib`
 2. Replace its `src/lib.rs` with the [lib.rs](https://github.com/dalibor-matura/xor-distance-exercise/blob/master/data/lib.rs) file (providing structure and tests) from [data](https://github.com/dalibor-matura/xor-distance-exercise/tree/master/data) folder.
 3. Replace its `Cargo.toml` with the [Cargo.toml](https://github.com/dalibor-matura/xor-distance-exercise/blob/master/data/Cargo.toml) from [data](https://github.com/dalibor-matura/xor-distance-exercise/tree/master/data) folder.
 4. Implement body of the `FoodDeliverySystem::reverse_closest_farms` method to make all tests pass.
+
+## License
+Licensed under the General Public License (GPL), version 3 ([LICENSE](https://github.com/dalibor-matura/xor-distance-exercise/blob/master/LICENSE) http://www.gnu.org/licenses/gpl-3.0.en.html).
