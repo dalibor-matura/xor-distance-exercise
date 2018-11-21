@@ -67,22 +67,28 @@ impl Bits {
         self.bits[index] = Some(val);
     }
 
-    /// Set new bit value for the index.
+    /// Set new bit value complying with constrains, already decided bit value can not be changed.
+    ///
+    /// Returns `Ok(())` in case constrains were not violated, `Err(&str)` otherwise.
     ///
     /// # Panics
     ///
     /// Panics if `index` is out of range.
-    pub fn set_bit_within_constrains(&mut self, index: usize, val: bool) -> bool {
+    pub fn set_bit_within_constrains(
+        &mut self,
+        index: usize,
+        val: bool,
+    ) -> Result<(), &'static str> {
         match self.bits[index] {
             // Existing bit with a different value is a breach of constrains.
-            Some(bit) if bit != val => return false,
+            Some(bit) if bit != val => return Err("Already decided bit value can not be changed!"),
             // The value is already present, nothing to do here.
             Some(_) => {}
             // No value set as yet so just assign it.
             None => self.bits[index] = Some(val),
         }
 
-        true
+        Ok(())
     }
 
     /// Is bit decided already?
@@ -128,5 +134,101 @@ impl Bits {
             }
             _ => {}
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use bits::Bits;
+
+    #[test]
+    fn bit_size() {
+        assert_eq!(8, Bits::bit_size::<u8>());
+        assert_eq!(16, Bits::bit_size::<u16>());
+        assert_eq!(32, Bits::bit_size::<u32>());
+        assert_eq!(64, Bits::bit_size::<u64>());
+        assert_eq!(128, Bits::bit_size::<u128>());
+    }
+
+    #[test]
+    fn new_bits_by_default_none() {
+        let bit_rep = Bits::new::<u64>();
+
+        for i in 0..Bits::bit_size::<u64>() {
+            assert_eq!(
+                None,
+                bit_rep.get_bit(i),
+                "Every bit should be empty in this phase, but the bit with index {} is not!",
+                i
+            );
+        }
+    }
+
+    #[test]
+    fn get_set_bit() {
+        let mut bit_rep = Bits::new::<u64>();
+
+        // By default all bits are None before being set otherwise.
+        assert_eq!(None, bit_rep.get_bit(0));
+        assert_eq!(None, bit_rep.get_bit(8));
+        assert_eq!(None, bit_rep.get_bit(63));
+
+        // Set 0-th bit to true.
+        let index = 0;
+        let val = true;
+        bit_rep.set_bit(index, val);
+        assert_eq!(Some(val), bit_rep.get_bit(index));
+
+        // Set 22-nd bit to true.
+        let index = 22;
+        let val = false;
+        bit_rep.set_bit(index, val);
+        assert_eq!(Some(val), bit_rep.get_bit(index));
+
+        // Set 63-rd bit to false.
+        let index = 63;
+        let val = false;
+        bit_rep.set_bit(index, val);
+        assert_eq!(Some(val), bit_rep.get_bit(index));
+
+        // Override 63-rd bit to true.
+        let index = 63;
+        let val = true;
+        bit_rep.set_bit(index, val);
+        assert_eq!(Some(val), bit_rep.get_bit(index));
+    }
+
+    #[test]
+    #[should_panic]
+    fn get_bit_index_out_of_range() {
+        let bit_rep = Bits::new::<u64>();
+
+        let index_out_of_range = 64;
+        bit_rep.get_bit(index_out_of_range);
+    }
+
+    #[test]
+    #[should_panic]
+    fn set_bit_index_out_of_range() {
+        let mut bit_rep = Bits::new::<u64>();
+
+        let index_out_of_range = 64;
+        bit_rep.set_bit(index_out_of_range, true);
+    }
+
+    #[test]
+    fn set_bit_within_constrains() {
+        let mut bit_rep = Bits::new::<u64>();
+
+        let index = 2;
+        // Setting the bit value for the first time is OK as it wasn't decided yet.
+        assert_eq!(Ok(()), bit_rep.set_bit_within_constrains(index, true));
+        // Setting the same bit value for the second time is OK, as the value stays the same.
+        assert_eq!(Ok(()), bit_rep.set_bit_within_constrains(index, true));
+        // Setting the bit value with a different value then in previous step violates constrains.
+        assert_eq!(
+            Err("Already decided bit value can not be changed!"),
+            bit_rep.set_bit_within_constrains(index, false)
+        );
     }
 }

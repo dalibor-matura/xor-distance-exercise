@@ -184,15 +184,18 @@ impl<T: PrimInt + Unsigned> XorDistance<T> {
         further_points
     }
 
+    /// Form bits restrictions as a bit representation based on provided inequalities.
+    ///
+    /// Returns `Some(b)` if bits restrictions can be constructed within constrains (no two
+    /// inequalities contradict themselves), `None` otherwise.
     fn form_bits_restrictions_from_inequalities(&self, inequalities: &[(T, T)]) -> Option<Bits> {
         let mut bit_rep = Bits::new::<T>();
 
+        // Combine all inequalities to form bits restrictions.
         for pair in inequalities.iter() {
-            let success = self.add_bit_restriction_from_inequality(pair, &mut bit_rep);
-
-            // Required bit can not be set within constrains and thus valid Bits
-            // can not be formed.
-            if !success {
+            if let Err(_) = self.add_bit_restriction_from_inequality(pair, &mut bit_rep) {
+                // Required bit can not be set within constrains and thus valid Bits
+                // can not be formed.
                 return None;
             }
         }
@@ -200,7 +203,17 @@ impl<T: PrimInt + Unsigned> XorDistance<T> {
         Some(bit_rep)
     }
 
-    fn add_bit_restriction_from_inequality(&self, &(a, b): &(T, T), bit_rep: &mut Bits) -> bool {
+    /// Incorporate bit restriction from provided inequality `a ^ x < b ^ x`, where `x` is the
+    /// position being searched for.
+    ///
+    /// Returns `Ok(())` in case the inequality doesn't contradict any inequality processed so far,
+    /// `Err(&str)` otherwise.
+    ///
+    fn add_bit_restriction_from_inequality(
+        &self,
+        &(a, b): &(T, T),
+        bit_rep: &mut Bits,
+    ) -> Result<(), &'static str> {
         let xor_distance: T = a ^ b;
 
         // Index of the first left hand-side bit in which `a` and `b` differ. The index starts by 0.
@@ -211,11 +224,11 @@ impl<T: PrimInt + Unsigned> XorDistance<T> {
         let a_bit = is_bit_set(a, bit_index);
 
         // Required bit can not be set within constrains.
-        if !bit_rep.set_bit_within_constrains(bit_index, a_bit) {
-            return false;
+        if let Err(e) = bit_rep.set_bit_within_constrains(bit_index, a_bit) {
+            return Err(e);
         }
 
-        true
+        Ok(())
     }
 }
 
