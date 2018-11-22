@@ -44,9 +44,9 @@ impl Bits {
     /// ```
     pub fn bit_size<T: PrimInt>() -> usize {
         let byte_size = size_of::<T>();
-        let bit_size = byte_size * 8;
 
-        bit_size
+        // Return the bit size.
+        byte_size * 8
     }
 
     /// Get bit value for the index.
@@ -129,7 +129,7 @@ impl Bits {
 
         // Set only "1" bit as the "0" bit is there by default.
         match bit {
-            Some(bit) if bit == true => {
+            Some(bit) if bit => {
                 set_bit::<T>(number, index);
             }
             _ => {}
