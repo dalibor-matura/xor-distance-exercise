@@ -3,7 +3,7 @@ Xor distances exercise including xor and bitwise operations for Rust.
 
 |Crate|Documentation|Travis CI|
 |:---:|:-----------:|:-------:|
-|[![](http://meritbadge.herokuapp.com/xor-distance-exercise)](https://crates.io/crates/xor-distance-exercise)|[![Documentation](https://docs.rs/xor-distance-exercise/badge.svg)](https://docs.rs/xor-distance-exercise)|[![Build Status](https://travis-ci.org/maidsafe/routing.svg?branch=master)](https://travis-ci.org/dalibor-matura/xor-distance-exercise)
+|[![](http://meritbadge.herokuapp.com/xor-distance-exercise)](https://crates.io/crates/xor-distance-exercise)|[![Documentation](https://docs.rs/xor-distance-exercise/badge.svg)](https://docs.rs/xor-distance-exercise)|[![Build Status](https://travis-ci.org/dalibor-matura/xor-distance-exercise.svg?branch=master)](https://travis-ci.org/dalibor-matura/xor-distance-exercise)
 
 ## Overview
 In order to get more familiar with **xor operations** and **xor distances**, you can try the following exercise described in the [Challenge](https://github.com/dalibor-matura/xor-distance-exercise#Challenge) section below. It is based on the challenge I’ve received as part of an interview once.
