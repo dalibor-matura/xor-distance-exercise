@@ -193,7 +193,10 @@ impl<T: PrimInt + Unsigned> XorDistance<T> {
 
         // Combine all inequalities to form bits restrictions.
         for pair in inequalities.iter() {
-            if self.add_bit_restriction_from_inequality(pair, &mut bit_rep).is_err() {
+            if self
+                .add_bit_restriction_from_inequality(pair, &mut bit_rep)
+                .is_err()
+            {
                 // Required bit can not be set within constrains and thus valid Bits
                 // can not be formed.
                 return None;
