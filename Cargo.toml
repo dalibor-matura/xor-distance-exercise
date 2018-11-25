@@ -1,6 +1,6 @@
 [package]
 name = "xor-distance-exercise"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["Dalibor Matura <dalibor.matura@gmail.com>"]
 description = "Xor distances exercise including xor and bit operations."
 documentation = "https://docs.rs/xor-distance-exercise"
