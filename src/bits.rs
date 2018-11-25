@@ -127,7 +127,7 @@ impl Bits {
     fn incorporate_bit<T: PrimInt>(&self, index: usize, number: &mut T) {
         let bit = self.bits[index];
 
-        // Set only "1" bit as the "0" bit is there by default.
+        // Set only `1` bit as `0` bits are present by default.
         match bit {
             Some(bit) if bit => {
                 set_bit::<T>(number, index);
@@ -230,5 +230,77 @@ mod tests {
             Err("Already decided bit value can not be changed!"),
             bit_rep.set_bit_within_constrains(index, false)
         );
+    }
+
+    #[test]
+    fn is_bit_decided() {
+        let mut bit_rep = Bits::new::<u64>();
+        let index = 0;
+
+        assert!(
+            !bit_rep.is_bit_decided(index),
+            "Bit hasn't been decided already, so false must be returned!"
+        );
+
+        // Set the bit to be `1`.
+        bit_rep.set_bit(index, true);
+
+        assert!(
+            bit_rep.is_bit_decided(index),
+            "Bit has been decided already, so true must be returned!"
+        );
+
+        // Set the bit to be `0`.
+        bit_rep.set_bit(index, false);
+
+        assert!(
+            bit_rep.is_bit_decided(index),
+            "Bit has been decided already, so true must be returned!"
+        );
+    }
+
+    #[test]
+    fn form_zero_padded_number() {
+        let mut bit_rep = Bits::new::<u64>();
+        bit_rep.set_bit_within_constrains(1, true).unwrap();
+        bit_rep.set_bit_within_constrains(2, true).unwrap();
+        bit_rep.set_bit_within_constrains(6, true).unwrap();
+
+        assert_eq!(70, bit_rep.form_zero_padded_number::<u64>().unwrap());
+    }
+
+    #[test]
+    fn form_zero_padded_number_type_error() {
+        let bit_rep = Bits::new::<u64>();
+
+        // Error is expected.
+        assert_eq!(
+            Err("Requested number type has not enough bits to represent the whole number!"),
+            bit_rep.form_zero_padded_number::<u32>()
+        );
+    }
+
+    #[test]
+    fn incorporate_bit() {
+        let mut bit_rep = Bits::new::<u64>();
+        bit_rep.set_bit_within_constrains(1, true).unwrap();
+        bit_rep.set_bit_within_constrains(2, true).unwrap();
+
+        let mut number: u64 = 0;
+
+        // Incorporating `1` bit with index 1 adds value 2.
+        bit_rep.incorporate_bit(1, &mut number);
+
+        assert_eq!(2, number);
+
+        // Incorporating `1` bit with index 2 adds value 4.
+        bit_rep.incorporate_bit(2, &mut number);
+
+        assert_eq!(6, number);
+
+        // Incorporating `0` bit does not change number's value.
+        bit_rep.incorporate_bit(3, &mut number);
+
+        assert_eq!(6, number);
     }
 }
