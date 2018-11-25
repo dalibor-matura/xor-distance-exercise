@@ -1,7 +1,28 @@
+//! Xor distance calculations for any `Unsigned Integer` set.
+
 use bitops::is_bit_set;
 use bits::Bits;
 use num_traits::{PrimInt, Unsigned};
 
+/// Xor distance structure holding set of `Unsigned Integer` points.
+///
+/// # Examples
+/// ```
+/// extern crate xor_distance_exercise;
+///
+/// use xor_distance_exercise::xor_distance::XorDistance;
+///
+/// let points: Vec<u64> = vec![
+///     0, 1, 2, 4, 6, 8, 12, 18, 19, 20, 21, 22, 406, 407, 408, 409, 410, 444, 445,
+/// ];
+/// let xor_distance = XorDistance::new(points.clone());
+///
+/// // Get four xor-closest number to the position number 300, ordered from the closest to the 4-th closest.
+/// let result = xor_distance.closest(300, 4);
+///
+/// // Reverse the operation to get a possible position number.
+/// let guess_pos = xor_distance.reverse_closest(&result).unwrap();
+/// ```
 pub struct XorDistance<T: PrimInt + Unsigned> {
     points: Vec<T>,
     bit_size: usize,
@@ -211,7 +232,6 @@ impl<T: PrimInt + Unsigned> XorDistance<T> {
     ///
     /// Returns `Ok(())` in case the inequality doesn't contradict any inequality processed so far,
     /// `Err(&str)` otherwise.
-    ///
     fn add_bit_restriction_from_inequality(
         &self,
         &(a, b): &(T, T),

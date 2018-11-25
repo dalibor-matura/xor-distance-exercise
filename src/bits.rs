@@ -1,4 +1,5 @@
 //! Bits representation for any `Integer`.
+
 use bitops::set_bit;
 use num_traits::PrimInt;
 use std::mem::size_of;
