@@ -1,4 +1,4 @@
-//! Miscellaneous bit operations for any [`Integer`].
+//! Miscellaneous bit operations for any `Integer`.
 //!
 //! # Examples
 //!

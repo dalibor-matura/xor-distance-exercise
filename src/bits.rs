@@ -1,8 +1,29 @@
+//! Bits representation for any `Integer`.
 use bitops::set_bit;
 use num_traits::PrimInt;
 use std::mem::size_of;
 
 /// Bits representation.
+///
+/// # Examples
+/// ```
+/// extern crate xor_distance_exercise;
+///
+/// use xor_distance_exercise::bits::Bits;
+///
+/// // Find out bit size of specific integer type.
+/// let size = Bits::bit_size::<i64>();
+///
+/// // Bit representation of `u64` integer.
+/// let mut bit_rep = Bits::new::<u64>();
+///
+/// // Operations on the bit representation.
+/// let bit = bit_rep.get_bit(4);
+/// bit_rep.set_bit(4, true);
+/// bit_rep.set_bit_within_constrains(5, true);
+/// bit_rep.is_bit_decided(4);
+/// let number = bit_rep.form_zero_padded_number::<u64>().unwrap();
+/// ```
 pub struct Bits {
     bits: Vec<Option<bool>>,
     size: usize,
@@ -13,9 +34,10 @@ impl Bits {
     /// # Examples
     /// ```
     /// extern crate xor_distance_exercise;
+    ///
     /// use xor_distance_exercise::bits::Bits;
     ///
-    /// Bits::new::<u64>;
+    /// let bit_rep = Bits::new::<u64>;
     /// ```
     pub fn new<T: PrimInt>() -> Self {
         // Initialize the vector with known size.
@@ -30,7 +52,7 @@ impl Bits {
         Bits { bits, size }
     }
 
-    /// Return bit size of the type being represent in bits.
+    /// Return bit size of the type being represented in bits.
     /// # Examples
     /// ```
     /// extern crate xor_distance_exercise;
@@ -51,6 +73,16 @@ impl Bits {
 
     /// Get bit value for the index.
     ///
+    /// # Examples
+    /// ```
+    /// extern crate xor_distance_exercise;
+    ///
+    /// use xor_distance_exercise::bits::Bits;
+    ///
+    /// let bit_rep = Bits::new::<u64>();
+    /// let bit = bit_rep.get_bit(4);
+    /// ```
+    ///
     /// # Panics
     ///
     /// Panics if `index` is out of range.
@@ -59,6 +91,17 @@ impl Bits {
     }
 
     /// Set new bit value for the index.
+    ///
+    /// # Examples
+    /// ```
+    /// extern crate xor_distance_exercise;
+    ///
+    /// use xor_distance_exercise::bits::Bits;
+    ///
+    /// let mut bit_rep = Bits::new::<u64>();
+    /// bit_rep.set_bit(4, true);
+    /// bit_rep.set_bit(5, false);
+    /// ```
     ///
     /// # Panics
     ///
@@ -70,6 +113,16 @@ impl Bits {
     /// Set new bit value complying with constrains, already decided bit value can not be changed.
     ///
     /// Returns `Ok(())` in case constrains were not violated, `Err(&str)` otherwise.
+    ///
+    /// # Examples
+    /// ```
+    /// extern crate xor_distance_exercise;
+    ///
+    /// use xor_distance_exercise::bits::Bits;
+    ///
+    /// let mut bit_rep = Bits::new::<u64>();
+    /// bit_rep.set_bit_within_constrains(4, true);
+    /// ```
     ///
     /// # Panics
     ///
@@ -93,6 +146,16 @@ impl Bits {
 
     /// Is bit decided already?
     ///
+    /// # Examples
+    /// ```
+    /// extern crate xor_distance_exercise;
+    ///
+    /// use xor_distance_exercise::bits::Bits;
+    ///
+    /// let bit_rep = Bits::new::<u64>();
+    /// bit_rep.is_bit_decided(4);
+    /// ```
+    ///
     /// # Panics
     ///
     /// Panics if `index` is out of range.
@@ -103,6 +166,16 @@ impl Bits {
     }
 
     /// Form and return a number based on bits representation, pad/fill undecided bits by zeros.
+    ///
+    /// # Examples
+    /// ```
+    /// extern crate xor_distance_exercise;
+    ///
+    /// use xor_distance_exercise::bits::Bits;
+    ///
+    /// let bit_rep = Bits::new::<u64>();
+    /// let number = bit_rep.form_zero_padded_number::<u64>().unwrap();
+    /// ```
     pub fn form_zero_padded_number<T: PrimInt>(&self) -> Result<T, &str> {
         if Self::bit_size::<T>() < self.size {
             return Err("Requested number type has not enough bits to represent the whole number!");
