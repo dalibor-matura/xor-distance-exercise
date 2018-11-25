@@ -1,6 +1,27 @@
+//! Food delivery system.
+
 use num_traits::{PrimInt, Unsigned};
 use xor_distance::XorDistance;
 
+/// Food delivery system of local food from from local farms.
+///
+/// # Examples
+/// ```
+/// extern crate xor_distance_exercise;
+///
+/// use xor_distance_exercise::delivery_system::FoodDeliverySystem;
+///
+/// let delivery_system: FoodDeliverySystem<u64> = FoodDeliverySystem::new(vec![
+///     0, 1, 2, 4, 6, 8, 12, 18, 19, 20, 21, 22, 406, 407, 408, 409, 410, 444, 445,
+/// ]);
+///
+/// let position = 200;
+/// let count = 10;
+///
+/// // Get closest farms and reversed guess of possible customer's `position`.
+/// let closest_farms = delivery_system.closest_farms(position, count);
+/// let position_guess = delivery_system.reverse_closest_farms(&closest_farms).unwrap();
+/// ```
 pub struct FoodDeliverySystem<T: PrimInt + Unsigned> {
     xor_distance: XorDistance<T>,
 }

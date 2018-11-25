@@ -12,10 +12,9 @@ use num_traits::{PrimInt, Unsigned};
 ///
 /// use xor_distance_exercise::xor_distance::XorDistance;
 ///
-/// let points: Vec<u64> = vec![
+/// let xor_distance: XorDistance<u64> = XorDistance::new(vec![
 ///     0, 1, 2, 4, 6, 8, 12, 18, 19, 20, 21, 22, 406, 407, 408, 409, 410, 444, 445,
-/// ];
-/// let xor_distance = XorDistance::new(points.clone());
+/// ]);
 ///
 /// // Get four xor-closest number to the position number 300, ordered from the closest to the 4-th closest.
 /// let result = xor_distance.closest(300, 4);
