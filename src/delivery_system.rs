@@ -1,7 +1,7 @@
 //! Food delivery system.
 
+use crate::xor_distance::XorDistance;
 use num_traits::{PrimInt, Unsigned};
-use xor_distance::XorDistance;
 
 /// Food delivery system of local food from from local farms.
 ///

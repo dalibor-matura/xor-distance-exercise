@@ -1,7 +1,7 @@
 //! Xor distance calculations for any `Unsigned Integer` set.
 
-use bitops::is_bit_set;
-use bits::Bits;
+use crate::bitops::BitOps;
+use crate::bits::Bits;
 use num_traits::{PrimInt, Unsigned};
 
 /// Xor distance structure holding set of `Unsigned Integer` points.
@@ -27,7 +27,7 @@ pub struct XorDistance<T: PrimInt + Unsigned> {
     bit_size: usize,
 }
 
-impl<T: PrimInt + Unsigned> XorDistance<T> {
+impl<T: PrimInt + BitOps + Unsigned> XorDistance<T> {
     pub fn new(points: Vec<T>) -> Self {
         let bit_size = Bits::bit_size::<T>();
 
@@ -243,7 +243,7 @@ impl<T: PrimInt + Unsigned> XorDistance<T> {
 
         // As `a` is closer to the position we are searching for then `b`, we need to restrict
         // to bit value of `a`.
-        let a_bit = is_bit_set(a, bit_index);
+        let a_bit = a.is_bit_set(bit_index);
 
         // Required bit can not be set within constrains.
         if let Err(e) = bit_rep.set_bit_within_constrains(bit_index, a_bit) {

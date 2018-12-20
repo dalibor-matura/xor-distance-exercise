@@ -1,6 +1,6 @@
 //! Bits representation for any `Integer`.
 
-use bitops::set_bit;
+use crate::bitops::BitOps;
 use num_traits::PrimInt;
 use std::mem::size_of;
 
@@ -198,13 +198,13 @@ impl Bits {
     /// # Panics
     ///
     /// Panics if `index` is out of range.
-    fn incorporate_bit<T: PrimInt>(&self, index: usize, number: &mut T) {
+    fn incorporate_bit<T: PrimInt + BitOps>(&self, index: usize, number: &mut T) {
         let bit = self.bits[index];
 
         // Set only `1` bit as `0` bits are present by default.
         match bit {
             Some(bit) if bit => {
-                set_bit::<T>(number, index);
+                number.set_bit(index);
             }
             _ => {}
         }
@@ -213,7 +213,7 @@ impl Bits {
 
 #[cfg(test)]
 mod tests {
-    use bits::Bits;
+    use crate::bits::Bits;
 
     #[test]
     fn bit_size() {
