@@ -12,6 +12,7 @@ env:
   global:
   - PATH=$PATH:$HOME/.cargo/bin
   - RUST_BACKTRACE=1
+  - CODECOV_TOKEN="7f914068-9b5b-48d5-b8f5-0a585eb531ed"
 addons:
   apt:
     packages:
