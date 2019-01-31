@@ -12,7 +12,6 @@ env:
   global:
   - PATH=$PATH:$HOME/.cargo/bin
   - RUST_BACKTRACE=1
-  - CODECOV_TOKEN="7f914068-9b5b-48d5-b8f5-0a585eb531ed"
 addons:
   apt:
     packages:
@@ -38,7 +37,8 @@ after_success: |
       sudo make install &&
       cd ../.. &&
       rm -rf kcov-master &&
-      for file in target/debug/examplerust-*[^\.d]; do mkdir -p "target/cov/$(basename $file)"; kcov --exclude-pattern=/.cargo,/usr/lib --verify "target/cov/$(basename $file)" "$file"; done &&
+      for file in target/debug/xor_distance_exercise-*[^\.d]; do mkdir -p "target/cov/$(basename $file)"; kcov --exclude-pattern=/.cargo,/usr/lib --verify "target/cov/$(basename $file)" "$file"; done &&
+      for file in target/debug/libxor_distance_exercise-*[^\.d]; do mkdir -p "target/cov/$(basename $file)"; kcov --exclude-pattern=/.cargo,/usr/lib --verify "target/cov/$(basename $file)" "$file"; done &&
       bash <(curl -s https://codecov.io/bash) &&
       echo "Uploaded code coverage"
     fi
