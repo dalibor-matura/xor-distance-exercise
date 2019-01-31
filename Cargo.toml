@@ -1,7 +1,8 @@
 [package]
 name = "xor-distance-exercise"
-version = "0.3.0"
+version = "0.3.1"
 authors = ["Dalibor Matura <dalibor.matura@gmail.com>"]
+edition = "2018"
 description = "Xor distances exercise including xor and bit operations."
 documentation = "https://docs.rs/xor-distance-exercise"
 homepage = "https://github.com/dalibor-matura/xor-distance-exercise"
@@ -9,6 +10,9 @@ license = "GPL-3.0"
 readme = "README.md"
 repository = "https://github.com/dalibor-matura/xor-distance-exercise"
 keywords = ["xor", "distance", "exercise"]
+
+[badges]
+travis-ci = { repository = "dalibor-matura/xor-distance-exercise", branch = "master" }
 
 [dependencies]
 num-traits = "0.2"
