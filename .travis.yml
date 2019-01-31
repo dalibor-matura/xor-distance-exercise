@@ -18,6 +18,7 @@ addons:
       - libcurl4-openssl-dev
       - libelf-dev
       - libdw-dev
+      - libbfd-dev
       - cmake
       - gcc
       - binutils-dev
@@ -27,7 +28,7 @@ before_script:
   (which cargo-prune && cargo install-update cargo-prune) || cargo install cargo-prune
 after_success:
 - |
-  if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+  if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_RUST_VERSION" == "stable" ]]; then
     wget https://github.com/SimonKagstrom/kcov/archive/master.tar.gz &&
     tar xzf master.tar.gz &&
     cd kcov-master &&
