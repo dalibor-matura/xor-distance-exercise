@@ -6,7 +6,7 @@ Xor distances exercise including xor and bitwise operations for Rust.
 |[![Crate](http://meritbadge.herokuapp.com/xor-distance-exercise)](https://crates.io/crates/xor-distance-exercise)|[![Documentation](https://docs.rs/xor-distance-exercise/badge.svg)](https://docs.rs/xor-distance-exercise)|[![Build Status](https://travis-ci.org/dalibor-matura/xor-distance-exercise.svg?branch=master)](https://travis-ci.org/dalibor-matura/xor-distance-exercise)|[![codecov](https://codecov.io/gh/dalibor-matura/xor-distance-exercise/branch/master/graph/badge.svg)](https://codecov.io/gh/dalibor-matura/xor-distance-exercise)
 
 ## Overview
-In order to get more familiar with **xor operations** and **xor distances**, you can try the following exercise described in the [Challenge](#challenge) section below. It is based on the challenge I’ve received as part of an interview once.
+In order to get more familiar with **xor operations** and **xor distances**, you can try the following exercise described in the [Challenge](#challenge) section below. It is based on the challenge I received once as a part of an interview.
 
 The `xor-distance-exercise` crate itself is a generic solution for the challenge. The [data](https://github.com/dalibor-matura/xor-distance-exercise/tree/master/data) folder contains a starting point to take on the challenge, so do not peek anywhere else if you intend to find or implement the solution by yourself.
 
