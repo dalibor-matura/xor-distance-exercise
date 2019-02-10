@@ -1,17 +1,19 @@
 # Xor distance exercise
-Xor distances exercise including xor and bitwise operations for Rust.
+
+Xor distances exercise with xor and bit operations for Rust.
 
 |Crate|Documentation|Travis CI|CodeCov|
 |:---:|:-----------:|:-------:|:-----:|
 |[![Crate](http://meritbadge.herokuapp.com/xor-distance-exercise)](https://crates.io/crates/xor-distance-exercise)|[![Documentation](https://docs.rs/xor-distance-exercise/badge.svg)](https://docs.rs/xor-distance-exercise)|[![Build Status](https://travis-ci.org/dalibor-matura/xor-distance-exercise.svg?branch=master)](https://travis-ci.org/dalibor-matura/xor-distance-exercise)|[![codecov](https://codecov.io/gh/dalibor-matura/xor-distance-exercise/branch/master/graph/badge.svg)](https://codecov.io/gh/dalibor-matura/xor-distance-exercise)
 
 ## Overview
-In order to get more familiar with **xor operations** and **xor distances**, you can try the following exercise described in the [Challenge](#challenge) section below. It is based on the challenge I received once as a part of an interview.
+In order to get more familiar with **xor operations** and **xor distances**, you can try the following exercise described in the [Challenge](#challenge) section below. It is based on the challenge I received as a part of an interview.
 
-The `xor-distance-exercise` crate itself is a generic solution for the challenge. The [data](https://github.com/dalibor-matura/xor-distance-exercise/tree/master/data) folder contains a starting point to take on the challenge, so do not peek anywhere else if you intend to find or implement the solution by yourself.
+The `xor-distance-exercise` crate itself is a generic solution for the challenge. The [data](https://github.com/dalibor-matura/xor-distance-exercise/tree/master/data) folder contains a starting point to take on the challenge, so do not peek anywhere else if you intend to find / implement the solution by yourself.
 
 ## Challenge
-Xor space has an odd shape, instead of location coordinates, places are specified by an unsigned `64-bit` integer. The distance between two points `x` and `y` is not what you’d expect, though: it’s `x ^ y`, the bitwise xor of the two locations.
+
+People living in Xor space experience different laws of physics. Instead of location coordinates, places are specified by an unsigned `64-bit` integer. The distance between two points `x` and `y` is not what you are used to from our three linear dimensions space, you have to calculate bitwise xor `x ^ y` of the two locations to get their Xor space distance.
 
 There are entrepreneurs in xor space too and one of them came up with an idea for a local fresh food delivery system:
 ```rust
