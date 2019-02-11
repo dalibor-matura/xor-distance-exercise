@@ -33,7 +33,7 @@ script:
   - cargo clean
   - cargo build --verbose $CARGO_OPTIONS
   - cargo test --verbose $CARGO_OPTIONS
-after_success: |
+  - |
   if [[ "$TRAVIS_RUST_VERSION" == nightly ]]; then
     zip -0 ccov.zip `find . \( -name "xor_distance_exercise*.gc*" \) -print`;
     ./grcov ccov.zip -s . -t lcov --llvm --branch --ignore-not-existing --ignore-dir "/*" > lcov.info;
