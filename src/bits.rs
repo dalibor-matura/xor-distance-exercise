@@ -273,7 +273,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "index out of bounds: the len is 64 but the index is 64")]
     fn get_bit_index_out_of_range() {
         let bit_rep = Bits::new::<u64>();
 
@@ -282,7 +282,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "index out of bounds: the len is 64 but the index is 64")]
     fn set_bit_index_out_of_range() {
         let mut bit_rep = Bits::new::<u64>();
 
