@@ -14,27 +14,28 @@ env:
   global:
     - PATH=$PATH:$HOME/.cargo/bin
     - RUST_BACKTRACE=1
-addons:
-  apt:
-    packages:
-      - libssl-dev
 before_cache:
   - cargo prune
-  - |
-    if [[ "$TRAVIS_RUST_VERSION" == nightly ]]; then
-      RUSTFLAGS="--cfg procmacro2_semver_exempt" cargo install cargo-tarpaulin -f
-    fi
+before_install: |
+  if [[ "$TRAVIS_RUST_VERSION" == nightly ]]; then
+    curl -L https://github.com/mozilla/grcov/releases/download/v0.4.1/grcov-linux-x86_64.tar.bz2 | tar jxf -
+  fi
 before_script:
   - |
     (which cargo-install-update && cargo install-update cargo-update) || cargo install cargo-update &&
     (which cargo-prune && cargo install-update cargo-prune) || cargo install cargo-prune
 script:
+  - |
+    if [[ "$TRAVIS_RUST_VERSION" == nightly ]]; then
+      export CARGO_INCREMENTAL=0
+      export RUSTFLAGS="-Zprofile -Ccodegen-units=1 -Cinline-threshold=0 -Clink-dead-code -Coverflow-checks=off -Zno-landing-pads"
+    fi
   - cargo clean
-  - cargo build
-  - cargo test
+  - cargo build --verbose $CARGO_OPTIONS
+  - cargo test --verbose $CARGO_OPTIONS
 after_success: |
   if [[ "$TRAVIS_RUST_VERSION" == nightly ]]; then
-    # Get coverage report and upload it for codecov.io.
-    cargo tarpaulin --out Xml
-    bash <(curl -s https://codecov.io/bash)
+    zip -0 ccov.zip `find . \( -name "xor_distance_exercise*.gc*" \) -print`;
+    ./grcov ccov.zip -s . -t lcov --llvm --branch --ignore-not-existing --ignore-dir "/*" > lcov.info;
+    bash <(curl -s https://codecov.io/bash) -f lcov.info;
   fi
