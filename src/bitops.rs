@@ -254,7 +254,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "attempt to shift left with overflow")]
     fn is_bit_set_index_out_of_range() {
         let bit_out_of_range = 64;
 
